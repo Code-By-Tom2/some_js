@@ -1,0 +1,59 @@
+function outerFunction() {
+  let outerVariable = 'I am from the outer scope';
+
+  function innerFunction() {
+    console.log(outerVariable); // Accessible due to lexical scoping
+  }
+
+  innerFunction();
+}
+
+outerFunction(); // Logs: "I am from the outer scope"
+function outerFunction() {
+    let count = 0;
+  
+    return function innerFunction() {
+      count++;
+      console.log(`Count: ${count}`);
+    };
+  }
+  
+  const counter = outerFunction(); // `counter` is a closure
+  counter(); // Logs: "Count: 1"
+  counter(); // Logs: "Count: 2"
+  counter(); // Logs: "Count: 3"
+  function createCounter() {
+    let count = 0;
+    return {
+      increment: () => ++count,
+      decrement: () => --count,
+      getCount: () => count
+    };
+  }
+  
+  const counter = createCounter();
+  console.log(counter.increment()); // 1
+  console.log(counter.decrement()); // 0
+  console.log(counter.getCount());  // 0
+  function multiplier(factor) {
+    return function (num) {
+      return num * factor;
+    };
+  }
+  
+  const double = multiplier(2);
+  console.log(double(5)); // 10
+  
+  const triple = multiplier(3);
+  console.log(triple(5)); // 15
+  function attachHandler() {
+    let count = 0;
+  
+    document.getElementById('button').addEventListener('click', () => {
+      count++;
+      console.log(`Button clicked ${count} times`);
+    });
+  }
+  
+  attachHandler();
+  
